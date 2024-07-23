@@ -1,0 +1,9 @@
+[package]
+name = "entity"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-graphql = "7.0.7"
+sea-orm = "0.12.15"
+serde = {version ="1.0.204", features=["derive"]}
