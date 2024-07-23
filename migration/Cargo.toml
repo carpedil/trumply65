@@ -1,26 +1,16 @@
-# 项目启动
+[package]
+name = "migration"
+version = "0.1.0"
+edition = "2021"
+publish = false
 
-```bash
-# 65岁，正式闯的年纪
-cargo new --bin trumply65
-```
+[lib]
+name = "migration"
+path = "src/lib.rs"
 
-## Setup Workspace
+[dependencies]
+async-std = { version = "1", features = ["attributes", "tokio1"] }
 
-```toml
-[workspace]
-members =['.']
-```
-
-## Setup Migration
-
-```toml
-
-## 1. create new lib for migration
-cargo new --lib migration
-# 2. run sea-orm-cli migrate init
-sea-orm-cli migrate init
-# 3. enable sea-orm-migration
 [dependencies.sea-orm-migration]
 version = "0.12.0"
 features = [
@@ -30,6 +20,3 @@ features = [
   "runtime-tokio-rustls",  # `ASYNC_RUNTIME` feature
   "sqlx-sqlite",         # `DATABASE_DRIVER` feature
 ]
-
-# 4. Define your Migration Object [m2024XXX.rs,lib.rs]
-```
