@@ -1,0 +1,10 @@
+/target
+.vscode
+*.db
+*.xlsx
+*.lock
+
+# ui
+.svelte-kit
+node_modules
+package-lock.json
