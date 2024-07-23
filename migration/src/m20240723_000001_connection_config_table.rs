@@ -32,10 +32,12 @@ impl MigrationTrait for Migration {
                     )
                     .col(
                         ColumnDef::new(ConnectionConfig::IsActive)
-                            .string()
+                            .boolean()
                             .not_null(),
                     )
                     .col(ColumnDef::new(ConnectionConfig::AbandonedTableList).string())
+                    .to_owned()
+                    .col(ColumnDef::new(ConnectionConfig::CreatedAt).timestamp())
                     .to_owned(),
             )
             .await
@@ -59,4 +61,5 @@ enum ConnectionConfig {
     Password,
     IsActive,
     AbandonedTableList,
+    CreatedAt
 }
