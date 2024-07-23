@@ -4,9 +4,8 @@ use async_graphql::SimpleObject;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, SimpleObject)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, SimpleObject )]
 #[sea_orm(table_name = "connection_config")]
-// #[graphql(concrete(name = "ConnectionConfig",params()))]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
@@ -15,8 +14,9 @@ pub struct Model {
     pub url: String,
     pub username: String,
     pub password: String,
-    pub is_active: String,
+    pub is_active: bool,
     pub abandoned_table_list: Option<String>,
+    pub created_at: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

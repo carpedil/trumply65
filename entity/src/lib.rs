@@ -5,4 +5,4 @@ pub mod prelude;
 pub mod connection_config;
 
 // 方便后面使用
-pub use async_graphql::*;
+pub use async_graphql;
