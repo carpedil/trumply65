@@ -16,6 +16,8 @@ impl TrumplyCcMutationService {
             url: Set(form_data.url),
             username: Set(form_data.username),
             password: Set(form_data.password),
+            is_active: Set(form_data.is_active),
+            created_at: Set(form_data.created_at),
             ..Default::default()
         };
 
