@@ -61,5 +61,5 @@ enum ConnectionConfig {
     Password,
     IsActive,
     AbandonedTableList,
-    CreatedAt
+    CreatedAt,
 }
