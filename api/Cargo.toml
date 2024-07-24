@@ -1,0 +1,17 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+migration = {path = "../migration"}
+entity = { path = "../entity"}
+service = { path = "../service"}
+db = {path = "../db"}
+common ={path ="../common"}
+
+tokio = {version ="1.38.0"}
+axum = "0.7.5"
+axum-macros = "0.4.1"
+dotenvy = "0.15.7"
+async-graphql-axum = "7.0.6"

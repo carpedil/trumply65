@@ -4,4 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members =['.', "common", "db", "entity", "migration", "service"]
+members =['.', "api", "common", "db", "entity", "migration", "service"]
+
+[dependencies]
+api = {path = "api"}
