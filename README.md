@@ -115,5 +115,14 @@ cargo add sea-orm serde async-graphql
    async-graphql = "7.0.6"
    chrono = "0.4.38"
    xlsxwriter = "0.6.1"
+
    ```
-6.
+
+# Setup DB
+
+1. cargo new --lib db
+2. 添加依赖
+   ```toml
+   [dependencies]
+   service = {path = "../service"}
+   ```
