@@ -2,7 +2,7 @@
 	import '../app.css';
 	import * as Resizable from '$lib/components/ui/resizable/index';
 	import MenuCommand from '$lib/components/MenuCommand.svelte';
-	import ModelWatcher from '$lib/components/ui/ModelWatcher.svelte';
+	import ModelWatcher from '$lib/components/ModelWatcher.svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index';
 </script>
 
