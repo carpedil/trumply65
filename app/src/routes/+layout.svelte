@@ -4,7 +4,11 @@
 	import MenuCommand from '$lib/components/MenuCommand.svelte';
 	import ModelWatcher from '$lib/components/ModelWatcher.svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index';
+	import AppToaster from '$lib/components/AppToaster.svelte';
 </script>
+
+<!-- toaster -->
+<AppToaster />
 
 <Resizable.PaneGroup direction="vertical" class="min-h-[100vh]  max-w-[100vw] rounded-lg border">
 	<Resizable.Pane defaultSize={5}>
