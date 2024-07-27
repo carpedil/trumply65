@@ -5,15 +5,18 @@
 	import { Input } from '$lib/components/ui/input/index';
 	import { toast } from 'svelte-sonner';
 	import * as Form from '$lib/components/ui/form';
-	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
-	import { dbTypes, envs, type FormSchema, formSchema } from '$lib/schema';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { type SuperValidated, type Infer, superForm, superValidate } from 'sveltekit-superforms';
+	import { dbTypes, envs, type FormSchema, formSchema, validateFormData } from '$lib/schema';
+	import { zod, zodClient } from 'sveltekit-superforms/adapters';
 	import { ScrollArea } from './ui/scroll-area/index';
 	import { isOracle, newConfigFlag } from '$lib/stores/flags';
+	import { fetch_tcc_list } from '$lib/stores/tcc';
+	import { createConnectionConfig } from '../../api/tcc';
+	import { onMount } from 'svelte';
 
 	let data: SuperValidated<Infer<FormSchema>> = {
 		id: 'data',
-		valid: true,
+		valid: false,
 		posted: false,
 		errors: {},
 		data: {
@@ -25,6 +28,9 @@
 			isActive: false
 		}
 	};
+	onMount(async () => {
+		data = await superValidate(zod(formSchema));
+	});
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema)
@@ -32,12 +38,39 @@
 
 	const { form: formData } = form;
 
-	const handleSave = () => {
+	const handleSave = async () => {
+		const validResult = validateFormData($formData);
+		if (validResult.length) {
+			toast.error('validation error', {
+				description: `Check fields【${validResult.join(' | ')}】 ,They can not be null`,
+				position: 'top-right'
+			});
+			return;
+		}
 		newConfigFlag.set(false);
-		toast.success('well done', {
-			description: 'sss',
-			position: 'top-right'
+		let res = await createConnectionConfig({
+			id: '',
+			dbType: $formData.dbType,
+			env: $formData.env,
+			url: $formData.url,
+			username: $formData.username,
+			password: $formData.password,
+			isActive: false,
+			abandonedTableList: ''
 		});
+		if (res.code !== 200) {
+			toast.error('Data Fetching Failed', {
+				description: res.message,
+				position: 'top-right'
+			});
+			return;
+		} else {
+			toast.success('success', {
+				description: `${res.message} | ${JSON.stringify(res.data.id)}`,
+				position: 'top-right'
+			});
+		}
+		await fetch_tcc_list();
 	};
 
 	$: selectedEnv = {
@@ -63,7 +96,7 @@
 						<Card.Title>Create Configs</Card.Title>
 						<Card.Description>information about your database connection</Card.Description>
 					</div>
-					<Button on:click={handleSave}>Save</Button>
+					<Button on:click={handleSave} variant="outline">Save</Button>
 				</Card.Header>
 				<Card.Content>
 					<Form.Field {form} name="env">
@@ -76,7 +109,7 @@
 								}}
 							>
 								<Select.Trigger {...attrs}>
-									<Select.Value placeholder="Select Env" />
+									<Select.Value placeholder="In what environment is this configuration used?" />
 								</Select.Trigger>
 								<Select.Content>
 									{#each envs as value}
@@ -96,7 +129,7 @@
 								}}
 							>
 								<Select.Trigger {...attrs}>
-									<Select.Value placeholder="Select dbType" />
+									<Select.Value placeholder="What is the database type?" />
 								</Select.Trigger>
 								<Select.Content>
 									{#each dbTypes as value}
@@ -110,20 +143,38 @@
 					<Form.Field {form} name="url">
 						<Form.Control let:attrs>
 							<Form.Label>Url</Form.Label>
-							<Input {...attrs} bind:value={$formData.url} />
+							<Input
+								{...attrs}
+								placeholder="What is the database url? eg. host:port/db_name"
+								bind:value={$formData.url}
+							/>
 						</Form.Control>
+						<Form.FieldErrors />
 					</Form.Field>
 					<Form.Field {form} name="username">
 						<Form.Control let:attrs>
 							<Form.Label>Username</Form.Label>
-							<Input {...attrs} bind:value={$formData.username} />
+							<Input
+								autocomplete="true"
+								{...attrs}
+								placeholder="The username to connect to database"
+								bind:value={$formData.username}
+							/>
 						</Form.Control>
+						<Form.FieldErrors />
 					</Form.Field>
 					<Form.Field {form} name="password">
 						<Form.Control let:attrs>
 							<Form.Label>Password</Form.Label>
-							<Input type="password" {...attrs} bind:value={$formData.password} />
+							<Input
+								type="password"
+								autocomplete="true"
+								{...attrs}
+								placeholder="The password to connect to database"
+								bind:value={$formData.password}
+							/>
 						</Form.Control>
+						<Form.FieldErrors />
 					</Form.Field>
 				</Card.Content>
 			</Card.Root>

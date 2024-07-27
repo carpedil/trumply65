@@ -16,7 +16,7 @@
 			</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<ScrollArea class="flex h-[250px]  w-full rounded-md border p-4 " orientation="horizontal">
+			<ScrollArea class="flex h-[250px]  w-[82vw] rounded-md border p-4 " orientation="horizontal">
 				<div class="flex flex-row justify-start gap-4">
 					<SettingsInfo />
 				</div>
