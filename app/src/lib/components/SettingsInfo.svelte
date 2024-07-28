@@ -5,12 +5,7 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index';
 	import { Trash2, BugPlay } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import {
-		activeConnectionConfig,
-		createConnectionConfig,
-		deleteConnectionConfig,
-		getAllConnectionConfigs
-	} from '../../api/tcc';
+	import { activeConnectionConfig, deleteConnectionConfig } from '../api/tcc';
 	import { fetch_tcc_list, tcc_list } from '$lib/stores/tcc';
 	import { toast } from 'svelte-sonner';
 

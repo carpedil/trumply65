@@ -1,5 +1,5 @@
 import { SrvResult, type ConnectionConfig } from '$lib/schema';
-import { handleSrvResult } from './index';
+import { handleSrvResult } from './utils';
 
 export const getAllConnectionConfigs = async (): Promise<SrvResult<ConnectionConfig[]>> => {
 	const query = `

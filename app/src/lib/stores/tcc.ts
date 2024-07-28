@@ -1,6 +1,6 @@
 import type { ConnectionConfig } from '$lib/schema';
 import { writable } from 'svelte/store';
-import { getAllConnectionConfigs } from '../../api/tcc';
+import { getAllConnectionConfigs } from '../api/tcc';
 
 export let tcc_list = writable<ConnectionConfig[]>([]);
 

@@ -11,7 +11,7 @@
 	import { ScrollArea } from './ui/scroll-area/index';
 	import { isOracle, newConfigFlag } from '$lib/stores/flags';
 	import { fetch_tcc_list } from '$lib/stores/tcc';
-	import { createConnectionConfig } from '../../api/tcc';
+	import { createConnectionConfig } from '../api/tcc';
 	import { onMount } from 'svelte';
 
 	let data: SuperValidated<Infer<FormSchema>> = {

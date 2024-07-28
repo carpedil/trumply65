@@ -14,15 +14,6 @@ export type FormSchema = typeof formSchema;
 
 export const validateFormData = (form: Object): string[] => {
 	const emptyFields: string[] = [];
-	// // 遍历对象的所有键
-	// for (const key in form) {
-	// 	if (form.hasOwnProperty(key)) {
-	// 		const value = form[key as keyof Object]; // 使用 keyof 操作符
-	// 		if (typeof value === 'string' && value === '') {
-	// 			emptyFields.push(key);
-	// 		}
-	// 	}
-	// }
 	// 检查对象中的每个属性
 	for (const [key, value] of Object.entries(form)) {
 		// 如果属性是字符串类型，并且值为空字符串，则添加到emptyFields数组中
@@ -97,18 +88,6 @@ export class SrvResult<T> {
 		this.code = code;
 		this.message = message;
 		this.data = data;
-	}
-}
-
-export class GlobalMessage {
-	public code: number | undefined = undefined;
-	public message: string | undefined = undefined;
-	public open: boolean = false;
-
-	constructor(code: number, message: string) {
-		this.code = code;
-		this.message = message;
-		this.open = true;
 	}
 }
 

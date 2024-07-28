@@ -12,14 +12,14 @@
 		<Command.Separator />
 		<Command.Group heading="Functions">
 			<Command.Item>
-				<a href="/tables">Tables</a>
+				<a href="/query">Query</a>
 			</Command.Item>
-			<Command.Item>
+			<!-- <Command.Item>
 				<a href="/export">Export</a>
 			</Command.Item>
 			<Command.Item>
 				<a href="/playground">Playground</a>
-			</Command.Item>
+			</Command.Item> -->
 		</Command.Group>
 	</Command.List>
 </Command.Root>
