@@ -39,6 +39,10 @@
 		console.log('getCurrentTableData:', res);
 		tableData = res.data;
 	};
+
+	const handleExport = () => {
+		alert('Export');
+	};
 </script>
 
 <div class="h-full w-full">
@@ -82,7 +86,11 @@
 									</ScrollArea>
 								</ContextMenu.Trigger>
 								<ContextMenu.Content>
-									<ContextMenu.Item>Export to Excel</ContextMenu.Item>
+									<ContextMenu.Item>
+										<button class="h-fit w-full p-1 text-left" on:click={handleExport}
+											>Export to Excel</button
+										>
+									</ContextMenu.Item>
 								</ContextMenu.Content>
 							</ContextMenu.Root>
 							<div class="flex h-[45vh] flex-col">

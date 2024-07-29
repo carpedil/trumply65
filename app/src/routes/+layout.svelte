@@ -5,6 +5,7 @@
 	import ModelWatcher from '$lib/components/ModelWatcher.svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index';
 	import AppToaster from '$lib/components/AppToaster.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 </script>
 
 <!-- toaster -->
@@ -13,7 +14,7 @@
 <Resizable.PaneGroup direction="vertical" class="min-h-[100vh]  max-w-[100vw] rounded-lg border">
 	<Resizable.Pane defaultSize={5}>
 		<div class="flex h-full w-full items-center justify-between p-4">
-			<div class=" w-full p-1.5">
+			<div class="flex w-full flex-row items-center p-1.5">
 				<Avatar.Root>
 					<Avatar.Image
 						src="https://avatars.githubusercontent.com/u/12119342?v=4"
@@ -22,6 +23,7 @@
 					/>
 					<Avatar.Fallback>CN</Avatar.Fallback>
 				</Avatar.Root>
+				<ProgressBar duration={1} />
 			</div>
 			<span class="font-semibold"><ModelWatcher /></span>
 		</div>
