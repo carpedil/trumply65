@@ -15,7 +15,6 @@ export const getAllConnectionConfigs = async (): Promise<SrvResult<ConnectionCon
 					abandonedTableList
 				}
 			}`;
-	console.log('query >> ', query);
 
 	const response = await fetch('/api/graphql', {
 		method: 'POST',
@@ -45,7 +44,6 @@ export const createConnectionConfig = async (
         }
     }
     `;
-	console.log('mutation >> ', mutation);
 	const response = await fetch('/api/graphql', {
 		method: 'POST',
 		headers: {
@@ -72,7 +70,6 @@ export const activeConnectionConfig = async (id: number): Promise<SrvResult<Conn
             }
         }
     `;
-	console.log('mutation >> ', mutation);
 
 	const response = await fetch('/api/graphql', {
 		method: 'POST',
@@ -94,7 +91,6 @@ export const deleteConnectionConfig = async (id: number): Promise<SrvResult<Numb
             }
         }
     `;
-	console.log('mutation >> ', mutation);
 
 	const response = await fetch('/api/graphql', {
 		method: 'POST',
@@ -117,7 +113,6 @@ export const updateBannedTableList = async (table_name: string): Promise<SrvResu
             }
         }
     `;
-	console.log('mutation >> ', mutation);
 
 	const response = await fetch('/api/graphql', {
 		method: 'POST',

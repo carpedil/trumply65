@@ -70,7 +70,6 @@ export class ExportSpecInput {
 
 	set_query_sql(where_clause: string) {
 		const select_fields = this.headers.map((header) => header.columnName).join(', ');
-		console.log('select_fields', select_fields);
 		where_clause === ''
 			? (this.querySql = `SELECT ${select_fields} FROM ${this.tableName} ORDER BY ${this.headers[1].columnName}`)
 			: (this.querySql = `SELECT ${select_fields} FROM ${this.tableName} ${where_clause.toUpperCase()} ORDER BY ${this.headers[1].columnName} `);

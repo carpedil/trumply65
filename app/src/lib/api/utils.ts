@@ -12,10 +12,8 @@ export function onInterval(callback: () => void, milliseconds: number | undefine
 export const handleSrvResult = <T>(data: T, errors: string): SrvResult<T> => {
 	console.log(data, errors);
 	if (errors) {
-		console.error('GraphQL errors:', errors);
 		return new SrvResult(500, errors, null);
 	}
-	console.log('response from backend: ', data);
 	return new SrvResult(200, 'success', data);
 };
 

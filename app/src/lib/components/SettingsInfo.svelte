@@ -14,7 +14,6 @@
 	});
 
 	const handleActive = async (e: any) => {
-		// console.log(e.target.id)
 		let res = await activeConnectionConfig(e.target.id);
 		if (res.code !== 200) {
 			toast.error('Data Fetching Failed', {

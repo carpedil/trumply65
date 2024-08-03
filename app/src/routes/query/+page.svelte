@@ -28,7 +28,6 @@
 		tableName = e.target.innerHTML;
 		await copyToClipboard(tableName);
 		const tableInfo = $table_list.filter((item) => item.tableName === tableName)[0];
-		console.log('tableInfo:', tableInfo);
 		let esi = new ExportSpecInput();
 		esi.set_table_name(tableInfo.tableName);
 		esi.set_headers(tableInfo.columnInfos);
@@ -38,7 +37,6 @@
 	let tableData: TableData[] = [];
 	const handleDataQuery = async () => {
 		let res = await getCurrentTableData($table_selected);
-		console.log('getCurrentTableData:', res);
 		tableData = res.data;
 	};
 
