@@ -5,7 +5,8 @@
 	import ModelWatcher from '$lib/components/ModelWatcher.svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index';
 	import AppToaster from '$lib/components/AppToaster.svelte';
-	import ProgressBar from '$lib/components/ProgressBar.svelte';
+	import ExportBreathingLight from '$lib/components/ExportBreathingLight.svelte';
+	import { exportBreathingFlag } from '$lib/stores/flags';
 </script>
 
 <!-- toaster -->
@@ -21,11 +22,15 @@
 						alt="@shadcn"
 						sizes="sm"
 					/>
-					<Avatar.Fallback>CN</Avatar.Fallback>
+					<Avatar.Fallback>CPX</Avatar.Fallback>
 				</Avatar.Root>
-				<ProgressBar duration={1} />
 			</div>
-			<span class="font-semibold"><ModelWatcher /></span>
+			<div class="card flex flex-row">
+				{#if $exportBreathingFlag}
+					<ExportBreathingLight />
+				{/if}
+				<span class="font-semibold"><ModelWatcher /></span>
+			</div>
 		</div>
 	</Resizable.Pane>
 	<Resizable.Handle />

@@ -13,8 +13,10 @@
 	import { fetch_table_list, table_list, set_table_selected, table_selected } from '$lib/stores/db';
 	import * as Command from '$lib/components/ui/command/index';
 	import { copyToClipboard } from '$lib';
-	import { ExportSpecInput, TableData } from '$lib/schema';
-	import { getCurrentTableData } from '$lib/api/db';
+	import { ExportSpecInput, TableColumnsInfo, TableData } from '$lib/schema';
+	import { exportAllTableData, getCurrentTableData } from '$lib/api/db';
+	import { exportBreathingFlag } from '$lib/stores/flags';
+	import { toast } from 'svelte-sonner';
 
 	let tableName = '';
 
@@ -40,8 +42,30 @@
 		tableData = res.data;
 	};
 
-	const handleExport = () => {
-		alert('Export');
+	const handleExport = async () => {
+		exportBreathingFlag.set(true);
+		let list: ExportSpecInput[] = [];
+		for (const table of $table_list) {
+			let esi = new ExportSpecInput();
+			esi.set_table_name(table.tableName);
+			esi.set_headers(table.columnInfos);
+			esi.set_query_sql('');
+			list.push(esi);
+		}
+		let res = await exportAllTableData(list);
+		exportBreathingFlag.set(false);
+		if (res.code !== 200) {
+			toast.error('Data Export Failed', {
+				description: res.message,
+				position: 'top-right'
+			});
+			return;
+		} else {
+			toast.success('success', {
+				description: `${JSON.stringify(res.data)}`,
+				position: 'top-right'
+			});
+		}
 	};
 </script>
 
