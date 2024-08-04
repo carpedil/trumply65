@@ -1,3 +1,22 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	let eventSource :EventSource;
+
+	onMount(()=>{
+		eventSource = new EventSource("http://localhost:18000/events")
+		eventSource.onmessage= function(evt) {
+			console.log("new event",evt.data)
+		}
+
+		// 组件卸载时关闭 EventSource
+		return () => {
+			if (eventSource) {
+				eventSource.close();
+			}
+		};
+	})
+</script>
+
 <!-- <div class="breathing-light"></div> -->
 <div class="flex flex-row items-center p-2 text-slate-400">
 	<span>Exporting</span>

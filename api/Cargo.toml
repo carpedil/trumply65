@@ -10,8 +10,12 @@ service = { path = "../service"}
 db = {path = "../db"}
 common ={path ="../common"}
 
-tokio = {version ="1.38.0"}
+tokio = {version ="1.38.0", features =["macros","rt-multi-thread"]}
+futures-core = "0.3.30"
+tokio-stream = "0.1.15"
+tower-http = {version = "0.5.2", features=["cors"]}
 axum = "0.7.5"
 axum-macros = "0.4.1"
 dotenvy = "0.15.7"
 async-graphql-axum = "7.0.6"
+chrono = "0.4.38"
