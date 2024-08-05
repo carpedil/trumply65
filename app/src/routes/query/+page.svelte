@@ -18,22 +18,26 @@
 	import { exportBreathingFlag } from '$lib/stores/flags';
 	import { toast } from 'svelte-sonner';
 
-	let tableName = '';
+	let currTableName = '';
 
 	onMount(async () => {
 		await fetch_table_list();
 	});
 
 	const handleClick = async (e: any) => {
-		tableName = e.target.innerHTML;
-		await copyToClipboard(tableName);
-		const tableInfo = $table_list.filter((item) => item.tableName === tableName)[0];
+		currTableName = e.target.innerHTML;
+		const tableInfo = $table_list.filter((item) => item.tableName === currTableName)[0];
 		let esi = new ExportSpecInput();
 		esi.set_table_name(tableInfo.tableName);
 		esi.set_headers(tableInfo.columnInfos);
 		esi.set_query_sql('');
 		set_table_selected(esi);
 	};
+
+	const handleCopyToClipboard = async () => {
+		await copyToClipboard($table_selected.tableName);
+	};
+
 	let tableData: TableData[] = [];
 	const handleDataQuery = async () => {
 		let res = await getCurrentTableData($table_selected);
@@ -93,7 +97,7 @@
 															<li>
 																<Command.Item class="select-text p-0 text-xs dark:text-blue-400">
 																	<button
-																		class={tableName === table.tableName
+																		class={currTableName === table.tableName
 																			? '!h-fit w-full rounded-md bg-green-400 p-1 text-left  dark:bg-slate-500'
 																			: 'h-fit w-full p-1  text-left'}
 																		on:click={handleClick}>{table.tableName}</button
@@ -113,6 +117,13 @@
 											>Export to Excel</button
 										>
 									</ContextMenu.Item>
+									{#if $table_selected.tableName !== ''}
+										<ContextMenu.Item>
+											<button class="h-fit w-full p-1 text-left" on:click={handleCopyToClipboard}
+												>Copy Table Name</button
+											>
+										</ContextMenu.Item>
+									{/if}
 								</ContextMenu.Content>
 							</ContextMenu.Root>
 							<div class="flex h-[45vh] flex-col">

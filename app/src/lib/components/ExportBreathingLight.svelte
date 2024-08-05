@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	let eventSource :EventSource;
+	let eventSource: EventSource;
 
-	onMount(()=>{
-		eventSource = new EventSource("http://localhost:18000/events")
-		eventSource.onmessage= function(evt) {
-			console.log("new event",evt.data)
-		}
+	onMount(() => {
+		eventSource = new EventSource('http://localhost:18000/events');
+		eventSource.onmessage = function (evt) {
+			console.log('new event', evt.data);
+		};
 
 		// 组件卸载时关闭 EventSource
 		return () => {
@@ -14,7 +14,7 @@
 				eventSource.close();
 			}
 		};
-	})
+	});
 </script>
 
 <!-- <div class="breathing-light"></div> -->
