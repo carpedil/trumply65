@@ -32,6 +32,8 @@
 		esi.set_headers(tableInfo.columnInfos);
 		esi.set_query_sql('');
 		set_table_selected(esi);
+		let res = await getCurrentTableData($table_selected);
+		tableData = res.data;
 	};
 
 	const handleCopyToClipboard = async () => {
@@ -207,7 +209,7 @@
 												{#each tableData as item}
 													<Table.Row>
 														{#each item.data as value}
-															<Table.Cell class="font-medium">{value}</Table.Cell>
+															<Table.Cell class="border font-medium">{value}</Table.Cell>
 														{/each}
 													</Table.Row>
 												{/each}
